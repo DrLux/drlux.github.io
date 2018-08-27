@@ -1,0 +1,279 @@
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Pierre</title>
+<meta property="og:title" content="drlux.github.io" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://drlux.github.io/" />
+<meta property="og:url" content="https://drlux.github.io/" />
+<meta property="og:site_name" content="drlux.github.io" />
+<script type="application/ld+json">
+{"name":"drlux.github.io","description":null,"author":null,"@type":"WebSite","url":"https://drlux.github.io/","image":null,"publisher":null,"headline":"drlux.github.io","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=c39a1771f6558c74fc8103217085900453fa1e9c">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/assets/js/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="icon" href="https://drlux.github.io/favicon.jpg">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://drlux.github.io/">Homepage</a></li>          
+          <li class="downloads"><a href="https://github.com/DrLux/Pierre">View On GitHub</a></li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Pierre: Solving Problems By Intelligent Search </h1>
+          <p></p>
+          <hr>
+          <span class="credits left">Realized in 2017</span>
+          <span class="credits right">Tags: c, A*</span>
+        </div>
+
+        <p><img src="https://drlux.github.io/pierre.jpg" alt="concept_of_pierre" /></p>
+
+        <p>
+          This project is completely related to the third chapter of <a href="https://www.amazon.it/Artificial-Intelligence-Modern-Approach-Global/dp/1292153962/ref=sr_1_1?ie=UTF8&qid=1517568266&sr=8-1&keywords=russell+norvig"> Artificial Intelligence A Modern Approach </a>. The idea is to solve any problems without having to re-implement the algorithms every time and to provide a different resolution strategy to solve each problem. To achieve this goal I use <bold>c</bold> because it is fast and I combine it with a high-level approach oriented to object programming, through the use of struct, void pointer and function pointers.
+        </p>
+      
+        <h1>Index</h1>
+        <ul id="menu">
+          <li><a href="#States">States and Actions</a></li>
+          <li><a href="#Problem">Formulating problems</a></li> 
+      		<li><a href="#Node">Node Structure</a></li>
+          <li><a href="#Internal">Internal logic</a></li>
+      		<li><a href="#Algorithms">Implemented Algorithms</a></li>
+		    </ul>
+      </br>
+
+        <h2 id="States"> States and Actions </h2>
+        Before we start talking about strategies to solve problems, we must introduce the basic elements of the problem:
+        <ul>
+          <li> 
+            <b>State:</b> represent the internal situation of the problem at a given moment. In the state are represented only the information necessary for the resolution of the problem. It could be a vector, a matrix or a struct so I used a void pointer to be more generic possible;</br>
+          </li>
+          <li>
+            <b>Action:</b> an action is a function that generates a new state from a given state;          
+          </li>
+        </ul>
+        </br>
+
+        I represented these concepts in the source code in this way: 
+        </br> 
+        <!-- HTML generated using hilite.me --><div style="background: #202020; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5
+6
+7
+8</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #6ab825; font-weight: bold">typedef</span> <span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">State</span> <span style="color: #d0d0d0">{</span>
+  <span style="color: #6ab825; font-weight: bold">long</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">id;</span> 
+  <span style="color: #6ab825; font-weight: bold">void</span><span style="color: #d0d0d0">*</span> <span style="color: #d0d0d0">state;</span>
+<span style="color: #d0d0d0">}</span> <span style="color: #d0d0d0">State;</span>
+
+<span style="color: #6ab825; font-weight: bold">typedef</span> <span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">Action</span> <span style="color: #d0d0d0">{</span>
+  <span style="color: #d0d0d0">State*</span> <span style="color: #d0d0d0">(*move)(State*</span> <span style="color: #d0d0d0">old_state);</span>
+<span style="color: #d0d0d0">}</span> <span style="color: #d0d0d0">Action;</span>
+</pre></td></tr></table></div>
+<blockquote>
+(Full code is available <a href="https://github.com/DrLux/Pierre/blob/master/header/common.h">here</a>).
+</blockquote>
+</br>
+
+        <h2 id="Problem"> Formulating problems </h2> 
+        Now let's talk about the problem description that the software needs to solve it: </br>
+        
+        <ul>
+          <li> <b>Initial State:</b> defines the initial state of the problem;</li>
+
+          <li> <b>Transition model:</b> given a state and legal action in it, it calculates a list of all possible states reachable by executing that action in that state;
+        
+          <li> <b>Goal test:</b> which determines whether a given state is a goal state;</li>
+
+          <li> <b>Cost Function:</b> function that assigns a numeric cost to each nodes, based on the distance from the initial state;</li>
+
+          <li> <b>Constraint Test Function:</b> determines if the state on which it is applied respects the constraints of the problem; </li>
+
+          <li> <b>Heuristic Function:</b> estimates a numeric cost of the path from the node on which it is applied up to the target state; </li>
+
+          <li> <b>Step cost:</b> given a state and the respective cost, returns the cost of its successor node;</li>
+
+          <li> <b>State Compare:</b> given two states defines its equality or not; </li>
+
+         <li> <b>Print Function:</b> given a status, defines how to print the contents on the screen; </li>
+
+        </ul>
+        </p></br>
+
+        <p>NB: some of these functions will not available in "problem" struct but there are needed to support other key functions, just like public and private methods. (For example, the Constraint Test Function used by the Transaction Model) </p></br> 
+
+        I represented these concepts in the source code in this way: 
+        </br>
+
+        <!-- HTML generated using hilite.me --><div style="background: #202020; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #6ab825; font-weight: bold">typedef</span> <span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">Problem</span> <span style="color: #d0d0d0">{</span>
+  <span style="color: #d0d0d0">State*</span> <span style="color: #d0d0d0">initial_state;</span> 
+  <span style="color: #6ab825; font-weight: bold">long</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">depth_solution;</span>
+  <span style="color: #d0d0d0">List*</span> <span style="color: #d0d0d0">(*transition_functions)(State*</span> <span style="color: #d0d0d0">state);</span>
+  <span style="color: #d0d0d0">Boolean</span> <span style="color: #d0d0d0">(*goal_test)(State*</span> <span style="color: #d0d0d0">state);</span>
+  <span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #d0d0d0">(*print_state)(State*</span> <span style="color: #d0d0d0">state);</span>
+  <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">(*heuristic)(State*</span> <span style="color: #d0d0d0">state);</span>
+  <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">(*step_cost)(State*</span> <span style="color: #d0d0d0">state,</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">cost);</span>
+  <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">(*state_compare)(</span><span style="color: #6ab825; font-weight: bold">void</span><span style="color: #d0d0d0">*</span> <span style="color: #d0d0d0">state1,</span> <span style="color: #6ab825; font-weight: bold">void</span><span style="color: #d0d0d0">*</span> <span style="color: #d0d0d0">state2);</span>
+<span style="color: #d0d0d0">}</span> <span style="color: #d0d0d0">Problem;</span>
+</pre></td></tr></table></div>
+<blockquote>
+(Full code is avaible <a href="https://github.com/DrLux/Pierre/blob/master/header/problem.h">here</a>).
+</blockquote>
+</br>
+
+    <h2 id="Node"> Node Structure </h2> 
+        Each algorithm does not work directly on the problem but works on a graph where each node contains information about the respective status of the problem.</br>
+        Now we see the internal structure of the node: </br> 
+        
+        <ul>
+          <li> <b>Node status:</b> the status of the problem, hosted in the node;</li>
+
+          <li> <b>Parent Node:</b> a pointer to the parent of the current node;</li>
+
+          <li> <b>Action:</b> the action performed on the parent node that led to the creation of the current node; 
+        
+          <li> <b>Path Cost:</b> the cost of the path from the root node to the current node;</li>
+
+          <li> <b>Heuristic Cost:</b> estimate of the cost of the path from the current node to the goal node; </li>
+
+          <li> <b>Total Cost:</b> sum of the Path Cost and the Heuristic Cost;</li>
+
+          <li> <b>Child Function:</b> function that from the current node, through an "action", generates all the possible child nodes;</li>
+
+        </ul>
+        </p></br>
+
+        I represented these concepts in the source code in this way:
+        </br>
+<!-- HTML generated using hilite.me --><div style="background: #202020; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #6ab825; font-weight: bold">typedef</span> <span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">IA_Node</span> <span style="color: #d0d0d0">{</span>
+  <span style="color: #6ab825; font-weight: bold">long</span> <span style="color: #6ab825; font-weight: bold">int</span> <span style="color: #d0d0d0">id;</span> 
+  <span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">State*</span> <span style="color: #d0d0d0">node_state;</span>
+  <span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">IA_Node*</span> <span style="color: #d0d0d0">parent;</span>
+  <span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">Action*</span> <span style="color: #d0d0d0">node_action;</span>
+  <span style="color: #6ab825; font-weight: bold">float</span> <span style="color: #d0d0d0">path_cost;</span>
+  <span style="color: #6ab825; font-weight: bold">float</span> <span style="color: #d0d0d0">heuristic_Cost;</span>
+  <span style="color: #6ab825; font-weight: bold">float</span> <span style="color: #d0d0d0">total_cost;</span>
+  <span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">IA_Node*</span> <span style="color: #d0d0d0">(*child_ia_node)(</span><span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">Problem*</span> <span style="color: #d0d0d0">problem,</span> <span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">IA_Node*</span> <span style="color: #d0d0d0">actual,</span> <span style="color: #6ab825; font-weight: bold">struct</span> <span style="color: #d0d0d0">Action*</span> <span style="color: #d0d0d0">move);</span>
+<span style="color: #d0d0d0">}</span> <span style="color: #d0d0d0">IA_Node;</span>
+        </pre></td></tr></table></div>
+        <blockquote>
+(Full code is avaible <a href="https://github.com/DrLux/Pierre/blob/master/header/node.h">here</a>).
+</blockquote>
+</br>      
+      
+    
+    <h2 id="Internal"> Internal logic </h2>
+    <p>Pierre (the name came from the pronunciation of PR that stand for Problem Resolver) is just a menu with which the user interacts.</p>
+
+    <p>It will print to him a list of the already implemented problem to solve. When he has chosen one of them, it provides him a list of algorithms to use to solve it. (for example, I have already implemented the <a href="https://en.wikipedia.org/wiki/River_crossing_puzzle"> lake problem </a> and the <a href="https://en.wikipedia.org/wiki/15_puzzle"> 8-puzzle problem</a>. The first one is very easy to solve, the second one needs to a <a href="https://heuristicswiki.wikispaces.com/Manhattan+Distance"> heuristic function</a>).    
+
+    <p>These algorithms use a classic data struct like priority list or red-black tree but also a node struct described above.</p>
+
+    <p>The struct node needs to the struct that describes the problem.</p>
+
+    <p>So you need to implement the required functions to describe your problem. (we talked about it <a href="https://drlux.github.io/pierre.html#Problem"> here</a>)</p>    
+
+    <p>To do this you need to import a common.h that, in addition to providing functions for creating and use a list, provide also the state and action struct.</p>
+
+    
+    <div class="language-js highlighter-rouge">
+            <div class="highlight">
+            <pre class="highlight">
+            <code>
+                <span class="c1">//Internal scheme of Pierre</span>
+                      <span>
+                              pierre.h
+                                  |
+                              algorithms.h
+                                / | \
+                              /   |   \
+                priority_list.h node.h redblack_tree.h
+                                  |
+                               problem.h
+                                  |
+                           *Problem_to_solve*
+                                  |
+                               common.h
+                                  |
+                                list.h 
+                      </span> 
+            </code>
+            </pre>
+            </div>
+          </div>  </br>
+
+      <h2 id="Algorithms"> Implemented Algorithms </h2></br>
+      <p> The following paragraph is a list of all the implemented algorithms that can be found in the <a href="https://github.com/DrLux/Pierre/blob/master/source/bt_algorithms.c"> source code </a>, followed by a brief description:</p>
+
+
+      <ul>
+        <li><b>Breadth-first:</b> search expands the shallowest nodes first; it is complete, optimal for unit step costs, but has exponential space complexity.</li>
+
+        <li><b>Uniform-cost:</b> search expands the node with lowest path cost, g(n), and is optimal for general step costs.</li>
+        
+        <li><b>Depth-first:</b> search expands the deepest unexpanded node first. It is neither complete nor optimal, but has linear space complexity.</li> 
+
+        <li><b>Depth-limited:</b> search adds a depth bound.</li>
+        
+        <li><b>Iterative deepening:</b> search calls depth-first search with increasing depth limits until a goal is found. It is complete, optimal for unit step costs, has time complexity comparable to breadth-first search, and has linear space complexity.</li></br>
+
+        <p><img src="https://drlux.github.io/complessita.jpg" alt="complexity_of_the_algorithms" /></p>
+
+        <li><b>A*:</b> search expands nodes with minimal f(n) = g(n) + h(n). A∗ is complete and optimal, provided that h(n) is admissible (for TREE-SEARCH) or consistent (for GRAPH-SEARCH). The space complexity of A* is still prohibitive. </li>
+      </ul>
+
+      <blockquote cite="http://aima.cs.berkeley.edu/">
+      This entire paragraph is a quote from Solving Problems by Searching - Artificial Intelligence: A Modern Approach (3rd Edition).
+      </blockquote>
+
+      </br>
+      At the end of the article I left you an example of the running program: 
+      <iframe width="550" height="400" src="https://www.youtube.com/embed/qo7FcFhYlQ0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+      </section>
+    </div>  
+  </body>
+</html>
+

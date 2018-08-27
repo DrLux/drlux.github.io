@@ -1,0 +1,462 @@
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Node_car</title>
+<meta property="og:title" content="drlux.github.io" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://drlux.github.io/" />
+<meta property="og:url" content="https://drlux.github.io/" />
+<meta property="og:site_name" content="drlux.github.io" />
+<script type="application/ld+json">
+{"name":"drlux.github.io","description":null,"author":null,"@type":"WebSite","url":"https://drlux.github.io/","image":null,"publisher":null,"headline":"drlux.github.io","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=c39a1771f6558c74fc8103217085900453fa1e9c">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/assets/js/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://drlux.github.io/">Homepage</a></li>
+          <li class="downloads"><a href="https://github.com/DrLux/Node_car">View On GitHub</a></li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Node_car: A Remote Controlled Raspberry Car With Node.js </h1>
+          <p></p>
+          <hr>
+          <span class="credits left">Realized in 2017</span>
+          <span class="credits right">Tags: node.js, raspberry, robot, remote-control, streaming</span>
+        </div>
+
+        <p><img src="https://drlux.github.io/robot.jpg" alt="node_car" /></p>
+
+        <p>
+          This project consists of a robot built with Raspberry Pi 3 that can be controlled remotely. The first server (written in Node.js) listens to commands from the client while another server (written in python) transmits the images captured by the robot's camera. 
+
+          The connection is established via Wi-Fi so you can control it from your pc (keyboard), your tablet (touchscreen) or even from your smartphone (touchscreen plus accelerometer).
+        </p>
+      
+        <h1>Index</h1>
+        <ul id="menu">
+          <li><a href="#Hardware-Components">Hardware components</a></li>
+            <ul>
+              <li><a href="#Customizations">My customizations</a></li>
+            </ul>  
+      		<li><a href="#Raspberry-Configuration">Raspberry configuration</a></li>
+          <li><a href="#Node_car">A node_car.js library</a></li>
+          <li><a href="#Servers">Programming server</a></li>
+            <ul>
+              <li><a href="#Command">Command_server.js</a></li>
+              <li><a href="#Streaming">Streaming_server.py</a></li>
+            </ul>
+          <li><a href="#Clients">Programming client</a></li>
+            <ul>
+              <li><a href="#Pc">Pc Interface</a></li>
+              <li><a href="#Tablet">Tablet Interface</a></li>
+              <li><a href="#Smartphone">Smartphone Interface</a></li>
+            </ul>
+      		<li><a href="#Tragic-ending">Tragic ending</a></li>
+		    </ul>
+
+
+
+        <h2 id="Hardware-Components">Hardware components</h2>
+        <p>I started with a commercial kit, where I took the basics hardware components. I chose the Sounfounder’s kit because it seemed simple and well documented, so I used their assembly instructions to build up the robot and then I developed my method to handle it (I didn't use their software).</br>
+        You can find their documentation <a href="https://www.sunfounder.com/learn/download/U21hcnRfVmlkZW9fQ2FyX2Zvcl9SYXNwYmVycnlfUGkucGRm/dispi">here</a> while the video guidance is left below.</p>
+
+        <iframe width="500" height="400" src="https://www.youtube.com/embed/Tg_g4YoAZdc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> 
+
+        <p>I admit I had some problems with their components, such as the wheel that did not fit the gearbox or the frequent shutdown of the device caused by a defective battery holder, but in general, I am satisfied with this kit, I did not regret my choice, perhaps I've just been unlucky.</p>
+
+        <h3 id="Customizations"> My customizations </h3> 
+        Once I finished assembling the robot, I made some personal customizations:
+        <ol>
+          <li> I purchased and installed an official picamera module instead of the cheap USB camera provided by the kit (This is important because of the software not support the USB camera. But don't worry, if you want to use the USB camera you can use the software provided by Sunfounder);</li>
+          <li> I removed the USB cable for power because it was unesthetic and unsuitable. I powered the Raspberry directly by the GPIO's pin;</li>
+          <li> In collaboration with the <a href="http://www.icxt.unito.it/">ICxT laboratory of Turin</a> we have created a protective cover made with 3D printer;</li>
+          <li>I switched the 3 servo motors with a newer and more powerful version (<a href="http://www.towerpro.com.tw/product/mg90s-3/">Tower pro MG90S</a> instead of  SG90);                   
+          </li>
+          <li> I removed the Usb Wi-Fi adapter because for raspberry pi 3 isn’t necessary.</br> (it already has an integrated module for this)</li>
+        </ol>
+        </p>
+
+        In this image, you can see the differences between the original Sunfounder's kit (on the left) and my final version of the robot (on the right). 
+        </br>
+        <p><img src="https://drlux.github.io/confronto.png" alt="after&before"/></p>
+
+        </br>
+        <h2 id="Raspberry-Configuration"></a>Raspberry Configuration</h2>
+        <p>
+          Once we have assembled the robot, we have to set up a connection between it and our pc, to do this we have to configure the raspberry.
+
+          First, of all, we need to install an OS. I chose Raspbian OS and I flashed it into my sd card with Etcher and then I installed it. At this point, I downloaded the tightvncserver and xrdp to get the remote desktop and then I installed the latest version of Node.js. ( The remote desktop is not quite necessary, you can simply use ssh, but I prefer this way).</br>
+
+          (If you need help to execute this step I recommend you to read <a href="http://thisdavej.com/beginners-guide-to-installing-node-js-on-a-raspberry-pi/"> this article</a>.)</p>
+          
+        <p>
+          It is not enough to connect them to the same router because this would limit the portability and usability of the robot and could introduce delays due to traffic congestion, so I used Hostapd to make the Raspberry an Access Point to connect the client directly to it. To do this I installed and configured hostapd and dnsmasq. 
+
+        <p>
+          I do not have configure the firewall to the forwarding of the packets through the web but rather I used the raspberry's network card to receive packets from client while a second wi-fi interface could be used to browse the web (maybe to install node.js modules or other stuff).</br>
+
+          (Read <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=191453">this discussion</a> has helped me a lot to do it.)</p>
+
+          So I leave you below the files of my configuration but I suggest you read <a href="https://frillip.com/using-your-raspberry-pi-3-as-a-wifi-access-point-with-hostapd/">this article</a> first.
+
+          Open the dhcpcd configuration file and add the following line at the bottom of the file:</br>
+
+          <div class="language-js highlighter-rouge">
+            <div class="highlight">
+            <pre class="highlight">
+            <code>
+              <span class="c1">//Enter -> sudo nano /etc/dhcpcd.conf</span>
+              <span>
+                interface wlan0
+                static ip_address=192.168.4.1/24
+                static routers=192.168.4.1 //static ip of raspberry
+                static domain_name_servers=8.8.8.8
+              </span> 
+            </code>
+            </pre>
+            </div>
+          </div>  
+
+
+          Check out my /ect/network/interfaces</br>
+
+          <div class="language-js highlighter-rouge">
+            <div class="highlight">
+            <pre class="highlight">
+            <code>
+              <span class="c1">//Enter -> sudo nano /ect/network/interfaces</span>
+              <span>
+                source-directory /etc/network/interfaces.d
+              </span> 
+            </code>
+            </pre>
+            </div>
+          </div>  
+
+
+          Now we have to configure hostapd, then create a new configuration file with "sudo nano /etc/hostapd/hostapd.conf" and insert the following lines:</br>
+
+          <div class="language-js highlighter-rouge">
+            <div class="highlight">
+            <pre class="highlight">
+            <code>
+              <span class="c1">//Enter -> sudo nano /etc/hostapd/hostapd.conf</span>
+              <span>
+                interface=wlan0
+                driver=nl80211
+                ssid=node_network
+                hw_mode=g
+                channel=7
+                ieee80211n=1
+                wmm_enabled=1
+                ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40]
+                macaddr_acl=0
+                auth_algs=1
+                ignore_broadcast_ssid=0
+                wpa=2
+                wpa_passphrase= "your wpa password"
+                wpa_key_mgmt=WPA-PSK
+                wpa_pairwise=TKIP
+                wpa_pairwise=CCMP
+              </span> 
+            </code>
+            </pre>
+            </div>
+          </div> 
+
+
+          Open up the default configuration file with sudo nano /etc/default/hostapd and find the line #DAEMON_CONF="" and replace it with DAEMON_CONF="/etc/hostapd/hostapd.conf".
+
+          This is my last part of the /etc/dnsmasq.conf </br>
+
+          <div class="language-js highlighter-rouge">
+            <div class="highlight">
+            <pre class="highlight">
+            <code>
+              <span class="c1">//Enter -> sudo nano /etc/dnsmasq.conf </span>
+              <span>
+                dhcp-mac=set:client_is_a_pi,B8:27:EB:*:*:*
+                dhcp-reply-delay=tag:client_is_a_pi,2
+
+                interface=wlan0
+                domain-needed
+                bogus-priv
+                dhcp-range=192.168.4.8,192.168.4.250,12h
+              </span> 
+            </code>
+            </pre>
+            </div>
+          </div>  
+        </br>
+
+
+          The wpa_supplicant will try to load first the wpa_supplicant.conf file named /etc/wpa_supplicant/wpa_supplicant-"$interface".conf. So considering that I want to use wlan1 interface to surf the net (while I use wlan0 as Access Point). I renamed my wpa_supplicant.conf with wpa_supplicant-wlan1.conf.</br>
+
+          <div class="language-js highlighter-rouge">
+            <div class="highlight">
+            <pre class="highlight">
+            <code>
+              <span class="c1">//Enter -> sudo nano etc/wpa_supplicant/wpa_supplicant-wlan1.conf</span>
+              <span>
+                ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+                update_config=1
+                country=IT
+              </span> 
+            </code>
+            </pre>
+            </div>
+          </div> 
+        </p>
+
+        </br>
+        Ok at this point we would go online by plugging a USB Wi-Fi adaptor (maybe the same found in the kit). But there is one final problem to solve: the metric.
+
+
+
+        You can see the current metric by typing this command -> route -n.
+
+        In short, you can change the priority set at a network interface.
+
+        You need to set the metric value of the wlan1 to a smaller number than that of wlan0. (the lower the value, the higher the priority).
+
+
+
+        You can change the metric by entering: sudo ifmetric wlan1 301.
+
+        (this last part is completely optionally, it useful only if you want to plug a USB wifi card adaptor).
+        </br>
+        <p><img src="https://drlux.github.io/metric.jpg" alt="metric_problem" /></p>
+
+        </br>
+        <h2 id="Node_car"></a>Node_car.js: a library to get the control of the robot</h2>
+        <p>
+          Now we finally start talking about software. First, of all, we need to take full control of each component. Two servo motors move the camera and they are both connected to the Adafruit Pca9685. The anterior wheels are also turned by a servo connected to the Pca9685. The engines are connected directly at the Gpio (but the speed is set by the pins of Pca9685) and they move the driving rear. So we can control every single component through communications with gpio and pca9685. There are a lot of well-done libraries already implemented that allows you to program these components, so I decided to base my work on <a href="https://github.com/johntreacy/adafruit-pca9685">adafruit-pca9685</a> and <a href="https://github.com/fivdi/pigpio">Gpio</a>.</br>
+          Starting from this two libraries I created my library called Node_car.js. Node_car.js uses OOP to offer high-level methods that are really simple to use and understand, to automatically check the parameters before sending them to the low-level, and to realize features such the autonomous camera movement following the steering wheel direction realized through the observer/observable pattern.
+          </p>
+
+
+          Example of code to move forward: </br>     
+            
+          <!-- HTML generated using hilite.me -->
+          <div style="background: #202020; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5
+6
+7
+8
+9</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #6ab825; font-weight: bold">var</span> <span style="color: #d0d0d0">node_car</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">require(</span><span style="color: #ed9d13">&#39;./node_car.js&#39;</span><span style="color: #d0d0d0">);</span>
+
+<span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(dir</span> <span style="color: #d0d0d0">==</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">){</span>            
+   <span style="color: #d0d0d0">node_car.motor_r.move_forward(speed);</span>          
+   <span style="color: #d0d0d0">node_car.motor_l.move_forward(speed);</span>
+<span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>        
+     <span style="color: #d0d0d0">node_car.motor_r.move_backward(speed);</span>          
+     <span style="color: #d0d0d0">node_car.motor_l.move_backward(speed);</span>
+<span style="color: #d0d0d0">}</span>
+</pre></td></tr></table></div>
+<blockquote>
+(Full code is avaible <a href="https://github.com/DrLux/Node_car/blob/master/node_car.js">here</a>).
+</blockquote>
+</br>
+
+          <!-- HTML generated using hilite.me -->
+        </p>
+
+        </br>
+        <h2 id="Servers">Command_server.js: receives commands from client and forward the instructions to the node_car.js</h2>
+
+
+
+        <p>
+
+          I used the web sockets to receive commands from the client's browser. The server starts listening on port 8085 and it's programmed to satisfy all the possible client signals that change depending on the type of device used. This is because each type of device has a different way of receiving user input.
+
+
+
+          For example:</br>
+
+            - if you use a pc, you will send the command from a keyboard, so the server will receive a single continuous command until you stop pressing the button;</br>
+
+            - if you use a tablet, you will use a virtual joystick and you will send frequent updates on the position of the stick. </br>        
+
+            A continuous input is very different from many single inputs.
+
+          </p>
+
+
+
+          <p>
+
+            For example, I left the function that drives the robot forward below. A "speed" parameter is required to represent the current degree of acceleration (captured by the smartphone's accelerometers or tablet's virtual-stick). If we don't have this information (perhaps because we receive this command from a keyboard) we need to call a function (providing the direction to move, i.e. forward or backward).
+
+          </p>
+
+
+
+                  <!-- HTML generated using hilite.me -->
+          <div style="background: #202020; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #d0d0d0">socket.on(</span><span style="color: #ed9d13">&#39;run&#39;</span><span style="color: #d0d0d0">,</span> <span style="color: #6ab825; font-weight: bold">function</span><span style="color: #d0d0d0">(speed)</span> <span style="color: #d0d0d0">{</span>
+  <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(speed){</span>
+     <span style="color: #d0d0d0">node_car.motor_r.move_forward(</span><span style="color: #3677a9">2000</span> <span style="color: #d0d0d0">+</span> <span style="color: #d0d0d0">(speed</span> <span style="color: #d0d0d0">*</span> <span style="color: #3677a9">20</span><span style="color: #d0d0d0">));</span>
+     <span style="color: #d0d0d0">node_car.motor_l.move_forward(</span><span style="color: #3677a9">2000</span> <span style="color: #d0d0d0">+</span> <span style="color: #d0d0d0">(speed</span> <span style="color: #d0d0d0">*</span> <span style="color: #3677a9">20</span><span style="color: #d0d0d0">));</span>
+  <span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+      <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(motor_on</span> <span style="color: #d0d0d0">==</span> <span style="color: #6ab825; font-weight: bold">false</span><span style="color: #d0d0d0">){</span>
+          <span style="color: #d0d0d0">motor_on</span> <span style="color: #d0d0d0">=</span> <span style="color: #6ab825; font-weight: bold">true</span><span style="color: #d0d0d0">;</span>
+          <span style="color: #d0d0d0">running(</span><span style="color: #3677a9">1</span><span style="color: #d0d0d0">,</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">);</span>
+      <span style="color: #d0d0d0">}</span>
+  <span style="color: #d0d0d0">}</span>
+<span style="color: #d0d0d0">});</span>
+          
+<span style="color: #6ab825; font-weight: bold">function</span> <span style="color: #d0d0d0">running(dir,</span> <span style="color: #d0d0d0">count){</span>
+  <span style="color: #6ab825; font-weight: bold">if</span><span style="color: #d0d0d0">(motor_on</span> <span style="color: #d0d0d0">==</span> <span style="color: #6ab825; font-weight: bold">false</span><span style="color: #d0d0d0">)</span> <span style="color: #6ab825; font-weight: bold">return</span><span style="color: #d0d0d0">;</span> <span style="color: #999999; font-style: italic">//stop loop</span>
+     <span style="color: #d0d0d0">speed</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">(</span><span style="color: #24909d">Math</span><span style="color: #d0d0d0">.log(count)*</span><span style="color: #3677a9">600</span><span style="color: #d0d0d0">)+</span><span style="color: #3677a9">2010</span><span style="color: #d0d0d0">;</span>
+  <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(dir</span> <span style="color: #d0d0d0">==</span> <span style="color: #3677a9">1</span><span style="color: #d0d0d0">){</span>
+     <span style="color: #d0d0d0">node_car.motor_r.move_forward(speed);</span>
+     <span style="color: #d0d0d0">node_car.motor_l.move_forward(speed);</span>
+  <span style="color: #d0d0d0">}</span> <span style="color: #6ab825; font-weight: bold">else</span> <span style="color: #d0d0d0">{</span>
+       <span style="color: #d0d0d0">node_car.motor_r.move_backward(speed);</span>
+       <span style="color: #d0d0d0">node_car.motor_l.move_backward(speed);</span>
+  <span style="color: #d0d0d0">}</span>
+  <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(!node_car.motor_r.get_limit())</span>
+     <span style="color: #d0d0d0">setTimeout(</span> <span style="color: #d0d0d0">running,</span> <span style="color: #3677a9">10</span><span style="color: #d0d0d0">,</span> <span style="color: #d0d0d0">dir,</span> <span style="color: #d0d0d0">count+</span><span style="color: #3677a9">1</span><span style="color: #d0d0d0">);</span>
+  <span style="color: #d0d0d0">console.log(</span><span style="color: #ed9d13">&#39;Actual speed value: &#39;</span><span style="color: #d0d0d0">+</span> <span style="color: #d0d0d0">speed);</span>
+<span style="color: #d0d0d0">}</span>
+</pre></td></tr></table></div>
+<blockquote>
+(Full code is avaible <a href="https://github.com/DrLux/Node_car/blob/master/server.js">here</a>).
+</blockquote>
+</br>
+        <!-- HTML generated using hilite.me -->
+
+    <p>
+            This function will recursively repeat the call to itself after a timeout and it will increment each time the "speed" parameter. The timer is used to give the robot some time to receive new commands and update its internal status, ie to interrupt the cycle conditions. This is because node.js is a single thread system.
+
+            (I had this idea while I was reading <a href="https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5">this article</a>).</br>
+
+            The increment of the speed is not linear but rather logarithmic, this gets better user experience). As you can see in this graph: 
+
+
+
+           
+            <p> <img src="https://drlux.github.io/logaritmo.jpg" alt="logarithmic acceleration" /></p>
+
+
+
+
+           
+            There are other parameters for calculating the increment because the range of speed is from 2000 to 4000 (is not a problem if the total exceeds the maximum limit a bit because the car.js node will check it and correct it automatically).  
+        </p>
+
+      
+    </br>
+    <h3 id="Streaming"> Streaming Server </h3>
+
+    For the streaming server, I chose to use <a href="https://github.com/waveform80/picamera">picamera</a>, the best Raspberry camera library. In particular, I based my server on <a href="https://github.com/BigNerd95/picamera/tree/master/docs/examples">this examples</a> that uses a multithreaded system to serve more client simultaneously without degrading the performance.</br>
+
+    In the end, we need to automatically start the server at the boot. I haven't had problem with phyton3 but for node.js server, I needed to install <a href="http://pm2.keymetrics.io/">pm2.</a>.</br>
+
+
+
+    <div class="language-js highlighter-rouge">
+      <div class="highlight">
+      <pre class="highlight">
+      <code>
+        <span class="c1">//To automatically run the servers at boot</span>
+        <span>
+          sudo pm2 start /home/pi/share/sorgente/command_server/server.js
+          python3 /home/pi/share/sorgente/streaming_server/multithread.py &
+        </span> 
+      </code>
+      </pre>
+      </div>
+    </div> 
+
+    </br>
+    <h2 id="Clients"></a>Client Interface</h2>
+    <p> Now let's talk about the client interfaces. I have built different interfaces for different customer devices. I show you these interfaces with a video and a brief explanation:</p>
+
+      </br>
+      <h3 id="Pc"></a>Pc Interface</h3>
+      My principal goal during the development of this interface was to take advantage of
+
+      the large space present on the keyboard, to build a comfortable controller. I set "wasd" keys to move the robot and the directional keys to move the camera. 
+      </br>
+      <iframe width="550" height="400" src="https://www.youtube.com/embed/67X9vGmBDa8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+      </br>
+      <h3 id="Tablet"></a>Tablet Interface</h3>
+      My principal goal during the development of this interface was the screen cleaning, so the screen should not have been covered by the command buttons. For this reason, I used <a href="https://github.com/jeromeetienne/virtualjoystick.js">virtualjoystick.js</a> to use a transparent stick only when the user touches the screen:      </br>
+      <iframe width="550" height="400" src="https://www.youtube.com/embed/ZOb4FwZuzA0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+      </br>
+      <h3 id="Smartphone"></a>Smartphone Interface</h3>
+      Smartphones are structurally similar to a tablet, so they can also use the tablet interface and therefore it would not be necessary to create a specific interface. But I wanted to make the most of the specific characteristics of each device used. So I preferred to implement another interface that can use the smartphone accelerometer to take user input. The result is very fun to use: </br>
+      <iframe width="550" height="400" src="https://www.youtube.com/embed/iv4mgGDiulw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+      </br>
+      </br>
+      <h2 id="Tragic-ending">Tragic Ending</h2>
+      As of today, I can no longer use node_car. This is due to the batteries bought by Samsung. They sent me these batteries with a plastic cover protection because they are very unstable and dangerous. The problem is that the cover was malfunctioning and the batteries are exploded in the same box where I had put my robot, so it was involved in this explosion. (At the moment of explosion the batteries were out of the robot). Unfortunately, the kit is no more available on Amazon Italy and I could not buy and rebuild the Node_car. (i can by a different kit, yes, but it would not be NODE_CAR... it would be another kind of robot). So, Sunfounder, if you read this lines, please add one more kit on Amazon Italy. </br>
+
+      And Samsung, if you read this lines.. f*ck you.
+      </br> 
+      <p><img src="https://drlux.github.io/esploso.png" alt="node_car explosion" /></p>
+
+
+      </br>
+      In the end, i left to you a Prezi presentation that sums up this article:</br>        
+      <iframe id="iframe_container" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" width="550" height="400" src="https://prezi.com/embed/pdzhcgtw9yan/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;landing_data=bHVZZmNaNDBIWnNjdEVENDRhZDFNZGNIUE43MHdLNWpsdFJLb2ZHanI0VTJPTnlOQWxtTjhibEhldE5Zck9GWUtRPT0&amp;landing_sign=KSOhKLhUVkU_eIEJ-uxHxzCs7x4E09NU8N8LVW9zibo"></iframe></br>
+
+    	</section>
+    </div>  
+  </body>
+</html>
