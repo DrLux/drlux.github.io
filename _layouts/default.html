@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+{% seo %}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <link rel="stylesheet" href="https://drlux.github.io/list.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="{{ '/assets/js/respond.js' | relative_url }}"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="{{ '/assets/css/ie.css' | relative_url }}">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://www.youtube.com/channel/UCpGozQ08FHNFr4Rzvx0jmgg">Youtube</a></li>
+          <li class="downloads"><a href="https://github.com/DrLux">View My GitHub</a></li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Lux's Laboratory</h1>
+          <p>A showcase where I present my projects</p>
+          <hr>
+        </div>
+
+
+
+        <div id="home_list">
+          <ul>
+            <li>
+              <a href="https://drlux.github.io/deeplearningai.html">
+                <img src="https://drlux.github.io/mini_deepai.png" />
+                <h3>Go Deep In Deep Learning PT2: Deep Learning Specialization</h3>
+                <p>As announced at the end of the previous article, once completed the introduction course at Andrew's Machine Learning I started his specialization course called Deep Learning Specialization on Coursera.          
+                The course is structured in 5 sub-courses:
+                Neural Networks and Deep Learning; Improving Deep Neural Networks; Structuring Machine Learning Projects; Convolutional Neural Networks; Sequence Models.
+              </p>
+              </a>
+            </li>
+            <li>
+              <a href="https://drlux.github.io/go_deep.html">
+                <img src="https://drlux.github.io/mini_go_deep.png" />
+                <h3>Go Deep In Deep Learning: My parallel master degree in deep learning</h3>
+                <p>I started a Master Degree in computer science and in parallel I started to studies deep learning from online courses. I prepared a plan for 2 years, taking the best courses that I found from Coursera, Khan Academy, Google, fast.ai, Mit...and i plan to follow them during my study at university. I make available all my personal notes, my solved questionnaires, and my programming assignments. You can follow my path step by step and take what you need, whether they are explanations, cues on which courses to follow, or source code of the projects that I will develop when I have enough knowledge.</p>
+              </a>
+            </li>
+            <li>
+              <a href="https://drlux.github.io/node_car.html">
+                <img src="https://drlux.github.io/mini_robot.jpg" />
+                <h3>Node_car: A Remote Controlled Raspberry Car With Node.js</h3>
+                <p>This project consists of a robot built with Raspberry Pi 3 that can be controlled remotely. The first server (written in Node.js) listens to commands from the client while another server (written in python) transmits the images captured by the robot's camera. The connection is established via Wi-Fi, so you can control it from your pc (keyboard), your tablet (touchscreen) or even from your smartphone (touchscreen plus accelerometer).</p>
+              </a>
+            </li>
+            <li>
+              <a href="https://drlux.github.io/pierre.html">
+                <img src="https://drlux.github.io/mini_pierre.jpg" />
+                <h3>Pierre: Solving Problems By Intelligent Search</h3>
+                <p>The idea is to solve any problems without having to re-implement the algorithms every time and to provide a different resolution strategy to solve each problem. To achieve this goal I use c because it is fast and I combine it with a high-level approach oriented to object programming, through the use of struct, void pointer and function pointers.</p>
+              </a>
+            </li>
+          </ul>
+        </div>  
+        
+      </section>
+    </div>
+
+    {% if site.google_analytics %}
+      <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', '{{ site.google_analytics }}', 'auto');
+        ga('send', 'pageview');
+      </script>
+    {% endif %}
+  </body>
+</html>
