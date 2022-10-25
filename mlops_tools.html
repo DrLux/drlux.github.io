@@ -68,6 +68,21 @@
             <li><a href="#4block"> Docker: Portable Machines </li>
           </ol>
         </p>
+
+        <h1 id="2block">  Hydra: Configuration Managare  </h1>       
+        <p>
+
+        <p><img src="https://drlux.github.io/mlops/hydra.png" height="400" width="600" /></p>
+        To be able to reproduce an experiment, running the same code is not enough. In fact, it is also necessary to provide 
+        the same data set and parameters/configurations. For this reason, monitoring all parameters used in each experiment 
+        must be a basic routine. A prevalent way to deal with this problem is to use the Yaml configuration, read them at the 
+        beginning of the script, and if necessary, create a folder for the rerun and store the used configuration in that folder.
+        Initially, I created a special class to manage configurations, made with a singleton pattern to be easily imported and 
+        used in each script. Then I discovered Hydra, produced by Facebook. Hydra is an open-source Python framework that 
+        dynamically creates a hierarchical configuration based on composition and overwrites it via configuration files and the 
+        command line.
+
+        <a href="https://www.sscardapane.it/tutorials/hydra-tutorial/"> You can find a great tutorial HERE!</a> 
         
 	      <h1 id="1block">  Data Version Control (DVC)  </h1>   
         <p>    
