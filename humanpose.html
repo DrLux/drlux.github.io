@@ -66,32 +66,30 @@
                 In fact, it is shown how it's possible to infer the original body measurements from the virtual ones. 
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva2.jpg" />
-                Developed by researchers at Carnegie Mellon University, can be considered the state-of-the-art approach 
+                Developed by researchers at Carnegie Mellon University, it can be considered the state-of-the-art approach 
                 for real-time human pose estimation. It allows real-time localization of human body parts, such as the 
                 shoulders, elbows, and ankles, from an input image or video.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva3.jpg" />
-                OpenPose use a bottom up approach, that means that the detection do not start from people detections.
-                Instead, it starts from the keypoints detections. The keypoints are detected using a convolution 
-                deep neural network that encode the entire image and produce an embedder. Then, another neural network 
-                uses this encoder to produce a Part Affinity Field (PAF) that encodes the spatial relationship (location 
-                and orientation ) between the human libs. Then this PAF and the initial gloab embedder are used by another 
-                neural network to produce a confidence map for the different body parts. At the end of these steps, the model
-                is able to identify the differents keypoints on the body but it is still necessary to build the Spanning tree 
-                to connect all the joint and build the skeleton. This is done by using the Greedy Bipartite graph algorithm 
-                that split the problem in a bipartite matching poblem and than matching the adjacent nodes indepenetly also 
-                using the infered PAF. 
-
+                OpenPose uses a bottom-up approach, which means that the detection does not start from people's detections.
+                Instead, it starts from the key points detections. The key points are detected using a convolution-deep neural 
+                network that encodes the entire image and produces an embedder. Then, another neural network uses this encoder 
+                to produce a Part Affinity Field (PAF) that encodes the spatial relationship (location and orientation ) between
+                the human libs. Then, another neural network uses this PAF and the initial glob embedder to produce a confidence 
+                map for the different body parts. At the end of these steps, the model is able to identify the different key 
+                points on the body, but it is still necessary to build the Spanning tree to connect all the joints and build the
+                skeleton. This is done using the Greedy Bipartite graph algorithm that splits the problem into a bipartite matching
+                problem and then matches the adjacent nodes independently using the inferred PAF. 
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva4.jpg" />
                 This is a general overview of the first version of the general network architecture. We can see how the 
-                inference process is an iterative one and the result it's produced after a T number of iterations.
+                inference process is an iterative process, and the result is produced after a T number of iterations.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva5.jpg" />
                 This is the result of OpenPose applied to my own body.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva6.jpg" />
-                SMPL is a method that reconstruct 3D human bodies from one or more RGB images by predicting 
+                SMPL is a method that reconstructs 3D human bodies from one or more RGB images by predicting 
                 parameters of a statistical 3D body model.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva7.jpg" />
@@ -99,12 +97,11 @@
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva8.jpg" />
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva9.jpg" />
-                Now that we are infered general template shape we have to move human mesh accordingly to a new pose.
-                This is called Skinning process.
+                Now that we have inferred a general template shape, we have to move the human mesh to a new pose.
+                This is called the Skinning process.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva10.jpg" />
-                Standard skinning methods (based on the linear blend skinning (LBS) method) producess deformation on the 
-                final mesh produced.
+                Standard skinning methods (based on the linear blend skinning (LBS) method) produce deformation on the final mesh produced.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva11.jpg" />
                 SMPL algorithm produces a skinning result by a simple, additive process w.r.t general information learned by data.
@@ -124,21 +121,21 @@
                 body size in the image.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva16.jpg" />
-                Since it is hard to collect couple of image and relative meshes, the idea behind SHAPY is to 
-                enrich the body regressor information with external data like Linguistic Attributes and Anthropometric Measurements.
+                Since it is hard to collect pair images and relative meshes, SHAPY enriches the body 
+                regressor information with external data like Linguistic Attributes and Anthropometric Measurements.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva17.jpg" />
-                The labeled CAESER dataset with linguistic attributes and leanr a Virtual Measurements model and Shape to Attributes model.
+                The labeled CAESER dataset with linguistic attributes and learned a Virtual Measurements model and Shape to Attributes model.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva18.jpg" />
-                They add to the dataset new losses from the Virtual Measurements model and Shape to Attributes model.
+                They add to the dataset new losses from the Virtual Measurements model and the Shape to Attributes model.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva19.jpg" />
                 This is the result of SHAPY applied to my own body.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva20.jpg" />
-                Parametric models like SMPL are able to  create a GENERAL human body but are not able to reproduce specific details like clothes, hair …
-                ICON is able to create a detailed surface and also maintain the ability of moving the pose of the created avatar.
+                Parametric models like SMPL can create a GENERAL human body but cannot reproduce specific details like clothes, hair …
+                ICON can create a detailed surface and maintain the ability to move the pose of the created avatar.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva21.jpg" />
               </p>
@@ -154,11 +151,10 @@
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva26.jpg" />
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva27.jpg" />
-                I use a combination of different models like: OpenPose,SMPL,SHAPY and ICON to create an accurate 3D model 
-                of my own body from a single 2D image.
+                I use a combination of different models like OpenPose, SMPL, SHAPY, and ICON to create an accurate 3D model of my own body from a single 2D image.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva28.jpg" />
-                In this last slide I show a comparison of my own body measurements with the ones infered by the models.
+                In this last slide, I show a comparison of my own body measurements with the ones inferred by the models.
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva29.jpg" />
                 
