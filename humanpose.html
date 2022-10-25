@@ -39,7 +39,7 @@
 
       <section>
         <div id="title">
-          <h1>Accurate 3D avatar from single 2D image:<br> Retrieve real human body measurements from accurate 3D avatar </h1>
+          <h1>Accurate 3D avatar from single 2D image:<br> Retrieve real human body measurements from virtual shape  </h1>
           </h1>
           <p></p>
           <hr>
@@ -61,9 +61,106 @@
           
             <div>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva1.jpg" />
-                Hi everyone, I'm Luca Sorrentino, and this is my master's thesis work discussion.
+                This project presents a simple way to generate a realistic virtual 3D avatar from one single 2D image. 
+                This avatar maintains the body details like clothes and hair and accurate body shape proportions. 
+                In fact, it is shown how it's possible to infer the original body measurements from the virtual ones. 
               </p>
               <p><img src="https://drlux.github.io/HumanPose/Diapositiva2.jpg" />
+                Developed by researchers at Carnegie Mellon University, can be considered the state-of-the-art approach 
+                for real-time human pose estimation. It allows real-time localization of human body parts, such as the 
+                shoulders, elbows, and ankles, from an input image or video.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva3.jpg" />
+                OpenPose use a bottom up approach, that means that the detection do not start from people detections.
+                Instead, it starts from the keypoints detections. The keypoints are detected using a convolution 
+                deep neural network that encode the entire image and produce an embedder. Then, another neural network 
+                uses this encoder to produce a Part Affinity Field (PAF) that encodes the spatial relationship (location 
+                and orientation ) between the human libs. Then this PAF and the initial gloab embedder are used by another 
+                neural network to produce a confidence map for the different body parts. At the end of these steps, the model
+                is able to identify the differents keypoints on the body but it is still necessary to build the Spanning tree 
+                to connect all the joint and build the skeleton. This is done by using the Greedy Bipartite graph algorithm 
+                that split the problem in a bipartite matching poblem and than matching the adjacent nodes indepenetly also 
+                using the infered PAF. 
+
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva4.jpg" />
+                This is a general overview of the first version of the general network architecture. We can see how the 
+                inference process is an iterative one and the result it's produced after a T number of iterations.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva5.jpg" />
+                This is the result of OpenPose applied to my own body.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva6.jpg" />
+                SMPL is a method that reconstruct 3D human bodies from one or more RGB images by predicting 
+                parameters of a statistical 3D body model.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva7.jpg" />
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva8.jpg" />
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva9.jpg" />
+                Now that we are infered general template shape we have to move human mesh accordingly to a new pose.
+                This is called Skinning process.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva10.jpg" />
+                Standard skinning methods (based on the linear blend skinning (LBS) method) producess deformation on the 
+                final mesh produced.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva11.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva12.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva13.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva14.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva15.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva16.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva17.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva18.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva19.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva20.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva21.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva22.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva23.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva24.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva25.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva26.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva27.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva28.jpg" />
+                Reinforcement learning is a mathematical formalism for learning-based decision-making.
+              </p>
+              <p><img src="https://drlux.github.io/HumanPose/Diapositiva29.jpg" />
                 Reinforcement learning is a mathematical formalism for learning-based decision-making.
               </p>
             </div>
