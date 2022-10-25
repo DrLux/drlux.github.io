@@ -33,7 +33,6 @@
         <nav>
           <ul>
             <li class="fork"><a href="https://drlux.github.io/">Homepage</a></li>          
-            <li class="downloads"><a href="https://drlux.github.io/go_deep.html">View Part 1</a></li>
           </ul>
         </nav>
       </div><!-- end header -->
@@ -42,224 +41,93 @@
 
       <section>
         <div id="title">
-          <h1>Deep Learning Specialization:<br> Master Deep Learning, and Break into AI </h1>
+          <h1>ML Ops Tool:<br> make every experiment reproducicle </h1>
           </h1>
           <p></p>
           <hr>
-          <span class="credits left">Realized in 2018</span>
-          <span class="credits right">Tags: machine learning, coursera, deep learning, tensorflow, neural network</span>
+          <span class="credits left">Realized in 2022</span>
+          <span class="credits right">Tags: deep learning, mlops, dvc, wandb, hydra, git, docker, poetry</span>
         </div>
 
-        <p><img src="https://drlux.github.io/deeplearningai/logo.png" /></p>
+        <p><img src="https://drlux.github.io/mlopstools.png" /></p>
+        <p>
+          This is a list of tools and tips to create a fully reproducible experiments. Versioning the code 
+          is not eought when we talk about reproducing a Deep Learning training. We also being able to 
+          reproduce the environment, the data, and the exactly same parameters. In ordet to do that I pesent 
+          some usefull tool like: code versioning (Git), data versioning (DVC), experiment logging and automatic 
+          hyper-parameter tuning (Weight & Biases), configuration handler (Hydra), and portable environment 
+          (Docker and Poetry). 
+        </p>
 
         <p>
-          This is the second part of <a href="https://drlux.github.io/go_deep.html">Go Deep In Deep Learning PT2: Deep Learning Specialization</a>.
-          As announced at the end of the <a href="https://drlux.github.io/go_deep.html#Next">previous article</a>, once completed the introduction course at Andrew's Machine Learning I started his specialization course called <a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specialization</a> on Coursera.
-          
-
-          The course is structured in 5 sub-courses:<ol>
-          <li><a href="#1block">Neural Networks and Deep Learning</a>: basically, you will learn how to build your first deep neural network using numpy;</li>
-          <li><a href="#2block"> Improving Deep Neural Networks</a>: basically, you will learn how to tune up your deep neural network;</li>
-          <li><a href="#3block"> Structuring Machine Learning Projects:</a> basically, you will get experiences on certain scenarios without having to spend years working on machine learning projects;</li>
-          <li><a href="#4block"> Convolutional Neural Networks:</a>basically, computer vision; </li>
-          <li><a href="#5block"> Sequence Models:</a> basically, speech recognition and NLP;</li>
-          <li><a href="#6block"> The coolest Programming assignments:</a> basically, now what can you do?</li>
-          <li><a href="#7block"> What's next?</li>
+          This is a list of the tools included in this article:<ol>
+          <li><a href="#1block"> Data Version Control</li>
+          <li><a href="#2block"> Hydra: Configuration Managare</li>
+          <li><a href="#3block"> Poetry: Dependency manager</li>
+          <li><a href="#4block"> Docker: Portable Machines </li>
           </ol>
-	       </p>
-        
-	      <h1 id="1block">  Neural Networks and Deep Learning  </h1>       
-        <p>
-
-        <p><img src="https://drlux.github.io/deeplearningai/CarouselAds_DL_Neural.jpg" height="550" width="630" /></p>
-        
-        <a href="https://www.coursera.org/learn/neural-networks-deep-learning"> 
-        In this course</a>, you will learn the foundations of deep learning. When you finish this class, you will:<ol>
-        <li> Understand the major technology trends driving Deep Learning
-        <li> Be able to build, train and apply fully connected deep neural networks 
-        <li> Know how to implement efficient (vectorized) neural networks 
-        <li> Understand the key parameters in a neural network's architecture 
-        </ol>This course also teaches you how Deep Learning actually works, rather than presenting only a cursory or surface-level description.
-        </p>
-
-        <p> My opinion: 
-          <blockquote>I recommend this course to those who already have a theoretical idea of how a deep neural network works and want to deepen the practical aspect (you will implement a deep neural network with numpy, without a framework and is very good thing for a beginners). For all the others starting from scratch and wanting to have a good understanding of the subject, I suggest to first retrieve the introductory course, again by prof. Andrew, called <a href="https://www.coursera.org/learn/machine-learning/home/info">Machine Learning.</a> 
-          </blockquote>
-        </p>
-      	
-
-        <p>
-          <a href="https://www.coursera.org/account/accomplishments/verify/MRMGDEMGMERR"><img src="https://drlux.github.io/deeplearningai/certificato1.jpg"/></a>
-        </p>
-
-        </br>
-        </br>
-        </br>
-
-        <h1 id="2block">  Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization  </h1>       
-        <p>
-
-        <p><img src="https://drlux.github.io/deeplearningai/CarouselAds_DL_Tuning.jpg" height="550" width="630" /></p>
-        
-        <a href="https://www.coursera.org/learn/deep-neural-network"> 
-        This course</a>, will teach you the "magic" of getting deep learning to work well. Rather than the deep learning process being a black box, you will understand what drives performance, and be able to more systematically get good results. You will also learn TensorFlow. </br>
-        After 3 weeks, you will:<ol>
-          <li> Understand industry best-practices for building deep learning applications. 
-          <li> Be able to effectively use the common neural network "tricks", including initialization, L2 and dropout regularization, Batch normalization, gradient checking, 
-          <li> Be able to implement and apply a variety of optimization algorithms, such as mini-batch gradient descent, Momentum, RMSprop and Adam, and check for their convergence. 
-          <li> Understand new best-practices for the deep learning era of how to set up train/dev/test sets and analyze bias/variance
-          <li> Be able to implement a neural network in TensorFlow.</ol>
-         </p>
-
-        <p> My opinion: 
-          <blockquote>
-              This second course is the natural continuation of the previous one. In the first course, you learned how to build a deep neural network from scratch, now you learn how to better initialize parameters, how to accelerate the process with optimized algorithms, how to tune up the hyperparameters and you will practice with Tensorflow. I find this course a bit more difficult than the first one, but I think these concepts are fundamental and the first course alone is not enough.
-          </blockquote>
         </p>
         
-
-        <p>
-          <a href="https://www.coursera.org/account/accomplishments/verify/MYHH6VJH2TBC"><img src="https://drlux.github.io/deeplearningai/certificato2.png"/></a>
-        </p>
-
-
-        </br>
-        </br>
-        </br>
-
-        <h1 id="3block">  Structuring Machine Learning Projects  </h1>       
+	      <h1 id="1block">  Data Version Control (DVC)  </h1>       
         <p>
 
-        <p><img src="https://drlux.github.io/deeplearningai/carouselads_dl_ml.jpg" height="550" width="630" /></p>
-        
-        <a href="https://www.coursera.org/learn/machine-learning-projects"> 
-        In this course</a>, you will learn how to build a successful machine learning project. If you aspire to be a technical leader in AI, and know how to set direction for your team's work, this course will show you how.
-
-        Much of this content has never been taught elsewhere, and is drawn from my experience building and shipping many deep learning products. This course also has two "flight simulators" that let you practice decision-making as a machine learning project leader. This provides "industry experience" that you might otherwise get only after years of ML work experience.<ol>
-
-        After 2 weeks, you will: 
-        <li>Understand how to diagnose errors in a machine learning system</li> 
-        <li>Be able to prioritize the most promising directions for reducing error</li>
-        <li>Understand complex ML settings, such as mismatched training/test sets, and comparing to and/or surpassing human-level performance</li>
-        <li>Know how to apply end-to-end learning, transfer learning, and multi-task learning</li> 
-        </br>
-        </ol>
-         </p>
-
-        <p> My opinion: 
-          <blockquote>
-              This is the most important of the other 5 because these contents are almost exclusive or in this course. It will inject in you the best advice learned from years of experience on ML projects and suggest the best strategies for real problems in the real world.
-          </blockquote>
-        </p>
+        <p><img src="https://drlux.github.io/mlops/dvc.png" height="550" width="630" /></p>
+        In real-world applications, you often don't work on a fixed data set but continue receiving new images and retraining models.
+        For this reason, it is essential to perform versioning of the dataset to be able to reproduce a training exactly.
+        Git is the perfect tool for code versioning but is not optimized for large files. For this reason, I use DVC https://dvc.org/     
+        DVC is designed to make ML models shareable and reproducible. It is designed to handle large files, datasets, 
+        machine learning models and metrics, as well as code.
+        <a href="https://realpython.com/python-data-version-control/"> You can find a great tutorial HERE!</a> 
         
 
+        </br>
+        </br>
+        </br>
+
+        <h1 id="2block">  Hydra: Configuration Managare  </h1>       
         <p>
-          <a href="https://www.coursera.org/account/accomplishments/records/4QAP6NHCWZND"><img src="https://drlux.github.io/deeplearningai/certificato3.png"/></a>
-        </p>
+
+        <p><img src="https://drlux.github.io/mlops/hydra.png" height="550" width="630" /></p>
+        To be able to reproduce an experiment, running the same code is not enough. In fact, it is also necessary to provide 
+        the same data set and parameters/configurations. For this reason, monitoring all parameters used in each experiment 
+        must be a basic routine. A prevalent way to deal with this problem is to use the Yaml configuration, read them at the 
+        beginning of the script, and if necessary, create a folder for the rerun and store the used configuration in that folder.
+        Initially, I created a special class to manage configurations, made with a singleton pattern to be easily imported and 
+        used in each script. Then I discovered Hydra, produced by Facebook. Hydra is an open-source Python framework that 
+        dynamically creates a hierarchical configuration based on composition and overwrites it via configuration files and the 
+        command line.
+
+        <a href="https://www.sscardapane.it/tutorials/hydra-tutorial/"> You can find a great tutorial HERE!</a> 
 
         </br>
         </br>
         </br>
 
-        <h1 id="4block">  Convolutional Neural Networks  </h1>       
+        <h1 id="3block">  Poetry: Dependency manager  </h1>       
+        <p><img src="https://drlux.github.io/mlops/poetry.png" height="550" width="630" /></p>
+        Anaconda is an excellent tool for handling python virtual environments but is not suited for managing dependencies. 
+        For example, it cannot make an automatic search of the most updated version of the package that does not produce 
+        conflict with the others. For this reason, I use Conda to create the virtual env and POETRY for installing dependencies 
+        and building the package easily. Poetry is a tool for dependency management and packaging in Python. It allows you to 
+        declare the libraries your project depends on and it will manage (install/update) them for you. Poetry offers a lockfile
+        to ensure repeatable installs and can build your project for distribution.
+
+        <a href="https://realpython.com/dependency-management-python-poetry/"> You can find a great tutorial HERE!</a>
+
+          
+        </br>
+        </br>
+        </br>
+
+        <h1 id="4block">  Docker: Portable Machines  </h1>       
         <p>
-        <p><img src="https://drlux.github.io/deeplearningai/CarouselAds_DL_Convolutional.jpg" height="550" width="630" /></p>
-        
-        <a href="https://www.coursera.org/learn/convolutional-neural-networks"> 
-        This course</a>, will teach you how to build convolutional neural networks and apply it to image data. Thanks to deep learning, computer vision is working far better than just two years ago, and this is enabling numerous exciting applications ranging from safe autonomous driving, to accurate face recognition, to automatic reading of radiology images.</br>
-        At the end of this course, you will:<ol>
-          <li> Understand how to build a convolutional neural network, including recent variations such as residual networks.</li>
-          <li> Know how to apply convolutional networks to visual detection and recognition tasks.</li>
-          <li> Know to use neural style transfer to generate art.</li>
-          <li> Be able to apply these algorithms to a variety of image, video, and other 2D or 3D data</li>
-          </li>
-        </ol>
-        </p>
-
-        <p> My opinion: 
-          <blockquote>
-              This is the most difficult course of the 5th, but also the one that gives more satisfaction. Scientists working on artificial vision have had incredible ideas and have achieved impressive results. Unfortunately, this course is not enough to master these techniques, but it is certainly an excellent first step to introduce yourself into this new world. 
-          </blockquote>
-        </p>
-        
-
-        <p>
-          <a href="https://www.coursera.org/account/accomplishments/verify/X8MRHV6BDD29"><img src="https://drlux.github.io/deeplearningai/certificato4.png"/></a>
-        </p>
-
-        </br>
-        </br>
-        </br>
-
-        <h1 id="5block">  Sequence Models  </h1>       
-        <p>
-        <p><img src="https://drlux.github.io/deeplearningai/CarouselAds_DL_Sequence.jpg" height="550" width="630" /></p>
-        
-        <a href="https://www.coursera.org/learn/nlp-sequence-models"> 
-        This course</a>,  will teach you how to build models for natural language, audio, and other sequence data. Thanks to deep learning, sequence algorithms are working far better than just two years ago, and this is enabling numerous exciting applications in speech recognition, music synthesis, chatbots, machine translation, natural language understanding, and many others.</br>
-        After 3 weeks, you will:<ol>
-          <li> Understand how to build and train Recurrent Neural Networks (RNNs), and commonly-used variants such as GRUs and LSTMs.</li>
-          <li> Be able to apply sequence models to natural language problems, including text synthesis.</li>
-          <li> Be able to apply sequence models to audio applications, including speech recognition and music synthesis.</li>
-        </ol>
-        </p>
-
-        <p> My opinion: 
-          <blockquote>
-              This is the course that I liked less. Unfortunately, I do not feel very comfortable using neural networks for tasks where logical reasoning would be needed (such as understanding the text) but I recognize that this is the state of the art, because it works better. Also in this case the course provides some basic tools to orientate yourself in the world of NLP but it is not at all sufficient to be able to say to master it. 
-          </blockquote>
-        </p>
-        
-
-        <p>
-          <a href="https://www.coursera.org/account/accomplishments/verify/XB65T8SGGZ3R"><img src="https://drlux.github.io/deeplearningai/certificato5.png"/></a>
-        </p>
-
-
-        </br>
-        </br>
-        </br>
-
-        <h1 id="6block">  The coolest Programming assignments  </h1>  
-
-        <p>
-          <blockquote>Using a SIGNS data set, I built a deep neural network model to recognize numbers from 0 to 5 in sign language with impressive precision.</blockquote>
-          <iframe width="600" height="320" src="https://www.youtube.com/embed/ZDH693FXl-4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </p>
-
-        <p>
-          <blockquote>I applied YOLO algorithm (a state-of-the-art object detection model) on Turin.</blockquote>
-          <p><img src="https://drlux.github.io/deeplearningai/yolo.jpeg" height="250" width="700" /></p>
-
-          <iframe width="600" height="320" src="https://www.youtube.com/embed/T4L5Up8PwKU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </p>
-	
-	<p>
-          <blockquote>Live version of YOLO algorithm with Raspberry camera.</blockquote>
-          <p><img src="https://drlux.github.io/deeplearningai/yolo.jpeg" height="250" width="700" /></p>
-
-	  <iframe width="640" height="360" src="https://www.youtube.com/embed/SFBUdU5PKgI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</p>	
-
-        <p>
-          <blockquote>Experiments with style transfer (the technique of recomposing images in the style of other images).</blockquote>
-          <p><img src="https://drlux.github.io/deeplearningai/style_transfer.jpg" height="250" width="700" /></p>
-        </p>
-
-        <p>
-          <p><img src="https://drlux.github.io/deeplearningai/io_to_sand.gif" height="400" width="400" /></p>
-        </p>
-
-        </br>
-        </br>
-        </br>
-
-        <h1 id="7block">  What's next? </h1>
-         <p>
-          <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/QQTATNLNJGDB"><img src="https://drlux.github.io/deeplearningai/certificato_finale.png"/></a>
-          Now that I have finished all 5 courses I have a perfect mastery of deep learning and I do not need to study anymore ... obviously, I'm joking. I'm still at the beginning, now it's the time to do exercises and start concrete projects by applying what has been learned.
-
-        </p>
+        <p><img src="https://drlux.github.io/mlops/docker.png" height="550" width="630" /></p>
+        The last component is as famous as it is needed: docker. Once you have the list of Poetry dependencies, it might be a problem having 
+        to reinstall all packages every time you deploy to a new machine. Furthermore, it is not certain that that machine has the same operating 
+        system or other macro software components as the one on which the training was initially launched. A docker-based development allows 
+        you to be abstract all these limits and create portable and always easily reproducible applications. Docker is an open-source software
+        platform to create, deploy and manage virtualized application containers on a common operating system (OS), with an ecosystem of allied tools.
+      
         
       </section>
     </div>  
