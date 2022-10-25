@@ -53,11 +53,14 @@ ul li:hover {
 }
 
 .downloads{
-  margin-top: 10px;
-  margin-bottom: 30px;
-  padding: 10px;
-  overflow: hidden;
-  border: 2px solid #5d910b;
-  border-radius: 2px;
-  box-shadow: inset 0px 1px 0px rgba(255,255,255,0.3), 0px 3px 7px rgba(0,0,0,0.7);
+  background-color: #199319;
+  color: white;
+  padding: 15px 25px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.downloads:hover {
+  background-color: #223094;
 }
