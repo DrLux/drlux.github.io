@@ -60,17 +60,19 @@
         </p>
 
         <p>
-          This is a list of the tools included in this article:<ol>
-          <li><a href="#1block"> Data Version Control</li>
-          <li><a href="#2block"> Hydra: Configuration Managare</li>
-          <li><a href="#3block"> Poetry: Dependency manager</li>
-          <li><a href="#4block"> Docker: Portable Machines </li>
+          This is a list of the tools included in this article:
+          <ol>
+            <li><a href="#1block"> Data Version Control</li>
+            <li><a href="#2block"> Hydra: Configuration Managare</li>
+            <li><a href="#3block"> Poetry: Dependency manager</li>
+            <li><a href="#4block"> Docker: Portable Machines </li>
           </ol>
         </p>
         
-	      <h1 id="1block">  Data Version Control (DVC)  </h1>       
+	      <h1 id="1block">  Data Version Control (DVC)  </h1>   
+        <p>    
 
-        <p><img src="https://drlux.github.io/mlops/dvc.png" height="350" width="630" /></p>
+        <p><img src="https://drlux.github.io/mlops/dvc.png" height="250" width="630" /></p>
         In real-world applications, you often don't work on a fixed data set but continue receiving new images and retraining models.
         For this reason, it is essential to perform versioning of the dataset to be able to reproduce a training exactly.
         Git is the perfect tool for code versioning but is not optimized for large files. For this reason, I use DVC https://dvc.org/     
@@ -86,7 +88,7 @@
         <h1 id="2block">  Hydra: Configuration Managare  </h1>       
         <p>
 
-        <p><img src="https://drlux.github.io/mlops/hydra.png" height="450" width="630" /></p>
+        <p><img src="https://drlux.github.io/mlops/hydra.png" height="350" width="630" /></p>
         To be able to reproduce an experiment, running the same code is not enough. In fact, it is also necessary to provide 
         the same data set and parameters/configurations. For this reason, monitoring all parameters used in each experiment 
         must be a basic routine. A prevalent way to deal with this problem is to use the Yaml configuration, read them at the 
@@ -103,7 +105,7 @@
         </br>
 
         <h1 id="3block">  Poetry: Dependency manager  </h1>       
-        <p><img src="https://drlux.github.io/mlops/poetry.png" height="350" width="630" /></p>
+        <p><img src="https://drlux.github.io/mlops/poetry.png" height="250" width="630" /></p>
         Anaconda is an excellent tool for handling python virtual environments but is not suited for managing dependencies. 
         For example, it cannot make an automatic search of the most updated version of the package that does not produce 
         conflict with the others. For this reason, I use Conda to create the virtual env and POETRY for installing dependencies 
@@ -120,7 +122,7 @@
 
         <h1 id="4block">  Docker: Portable Machines  </h1>       
         <p>
-        <p><img src="https://drlux.github.io/mlops/docker.png" height="450" width="630" /></p>
+        <p><img src="https://drlux.github.io/mlops/docker.png" height="350" width="630" /></p>
         The last component is as famous as it is needed: docker. Once you have the list of Poetry dependencies, it might be a problem having 
         to reinstall all packages every time you deploy to a new machine. Furthermore, it is not certain that that machine has the same operating 
         system or other macro software components as the one on which the training was initially launched. A docker-based development allows 
